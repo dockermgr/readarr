@@ -28,9 +28,12 @@ docker run -d \
 --name casjaysdevdocker-readarr \
 --hostname readarr \
 -e TZ=${TIMEZONE:-America/New_York} \
--v $HOME/.local/share/srv/docker/casjaysdevdocker-readarr/rootfs/data:/data:z \
+-e PUID=1000 \
+-e PGID=1000 \
+-v /mnt/books:/books:z \
+-v /mnt/downloads:/downloads:z \
 -v $HOME/.local/share/srv/docker/casjaysdevdocker-readarr/rootfs/config:/config:z \
--p 80:80 \
+-p 0.0.0.0:8787:8787 \
 casjaysdevdocker/readarr:latest
 ```
   
@@ -45,11 +48,14 @@ services:
     environment:
       - TZ=America/New_York
       - HOSTNAME=readarr
+      - PUID=1000
+      - PGID=1000
     volumes:
-      - $HOME/.local/share/srv/docker/casjaysdevdocker-readarr/rootfs/data:/data:z
+      - /mnt/books:/books:z
+      - /mnt/downloads:/downloads:z
       - $HOME/.local/share/srv/docker/casjaysdevdocker-readarr/rootfs/config:/config:z
     ports:
-      - 80:80
+      - 0.0.0.0:8787:8787
     restart: always
 ```
   
