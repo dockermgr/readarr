@@ -19,9 +19,9 @@ dockermgr update readarr
 ## Install and run container
   
 ```shell
-mkdir -p "$HOME/.local/share/srv/docker/readarr/rootfs"
+mkdir -p "$HOME/.local/share/srv/docker/readarr/volumes"
 git clone "https://github.com/dockermgr/readarr" "$HOME/.local/share/CasjaysDev/dockermgr/readarr"
-cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/readarr/rootfs/." "$HOME/.local/share/srv/docker/readarr/rootfs/"
+cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/readarr/volumes/." "$HOME/.local/share/srv/docker/readarr/volumes/"
 docker run -d \
 --restart always \
 --privileged \
@@ -32,7 +32,7 @@ docker run -d \
 -e PGID=1000 \
 -v /mnt/books:/books:z \
 -v /mnt/downloads:/downloads:z \
--v $HOME/.local/share/srv/docker/casjaysdevdocker-readarr/rootfs/config:/config:z \
+-v $HOME/.local/share/srv/docker/casjaysdevdocker-readarr/volumes/config:/config:z \
 -p 0.0.0.0:8787:8787 \
 casjaysdevdocker/readarr:latest
 ```
@@ -53,7 +53,7 @@ services:
     volumes:
       - /mnt/books:/books:z
       - /mnt/downloads:/downloads:z
-      - $HOME/.local/share/srv/docker/casjaysdevdocker-readarr/rootfs/config:/config:z
+      - $HOME/.local/share/srv/docker/casjaysdevdocker-readarr/volumes/config:/config:z
     ports:
       - 0.0.0.0:8787:8787
     restart: always
